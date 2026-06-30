@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="mn">
-<head> <link rel="manifest" href="./manifest.json">
+<head> <head> <link rel="manifest" href="./manifest.json"></head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -120,7 +120,9 @@
   .face .tag{font-size:11px; color:var(--text-dim); font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.06em;}
   .face .word{font-family:'Manrope',sans-serif; font-weight:800; font-size:27px; margin-top:8px; line-height:1.15;}
   .face .mn{font-family:'Manrope',sans-serif; font-weight:700; font-size:21px; margin-top:8px; line-height:1.3; color:var(--gold);}
-  .face .example{font-size:14px; color:var(--text-muted); margin-top:10px; line-height:1.45; font-style:italic;}
+  .face .example{font-size:13px; color:var(--text-muted); margin-top:12px; line-height:1.5; font-style:normal; background:var(--surface-soft); border:1px solid var(--surface-line); border-radius:10px; padding:10px 12px;}
+  .face .example .ex-label{color:var(--teal); font-weight:700; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:4px;}
+  .face .example .ex-text{color:var(--text); font-size:14px; line-height:1.45;}
   .face .pron{font-size:13px; color:var(--teal); margin-top:10px; font-family:'IBM Plex Mono',monospace;}
   .face .spacer{flex:1;}
   .face .btn-row{display:flex; align-items:center; gap:8px; margin-top:10px;}
@@ -265,63 +267,6 @@
   }
   .tabbar .tab .ic{font-size:19px;}
   .tabbar .tab.active{color:var(--gold);}
-
-  /* ---------- learned tab ---------- */
-  .filter-row{
-    display:flex; gap:7px; margin:14px 0 16px; overflow-x:auto; padding-bottom:2px;
-    scrollbar-width:none;
-  }
-  .filter-row::-webkit-scrollbar{display:none;}
-  .filter-chip{
-    flex-shrink:0; padding:7px 13px; border-radius:999px; font-size:12px; font-weight:600;
-    background:var(--surface-soft); border:1px solid var(--surface-line); color:var(--text-muted);
-    white-space:nowrap; transition:background .15s, color .15s;
-  }
-  .filter-chip.active{background:var(--gold-soft); color:var(--gold); border-color:var(--gold);}
-  .lcard{
-    background:var(--surface); border:1px solid var(--surface-line); border-radius:var(--radius);
-    padding:16px; margin-bottom:10px; position:relative; overflow:hidden;
-    transition:transform .15s;
-  }
-  .lcard:active{transform:scale(0.985);}
-  .lcard::before{
-    content:""; position:absolute; top:0; left:0; width:3px; height:100%;
-    background:var(--gold); border-radius:3px 0 0 3px;
-  }
-  .lcard.fav-card::before{background:var(--teal);}
-  .lcard-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
-  .lcard-en{font-family:'Manrope',sans-serif; font-weight:800; font-size:18px; line-height:1.2;}
-  .lcard-mn{font-size:13px; color:var(--gold); font-weight:600; margin-top:4px;}
-  .lcard-meta{display:flex; align-items:center; gap:6px; margin-top:10px; flex-wrap:wrap;}
-  .lcard-badge{
-    font-size:10px; font-family:'IBM Plex Mono',monospace; font-weight:600;
-    padding:3px 8px; border-radius:999px; background:var(--surface-soft); color:var(--text-muted);
-    border:1px solid var(--surface-line);
-  }
-  .lcard-badge.day-badge{color:var(--teal); border-color:rgba(95,208,192,0.3); background:rgba(95,208,192,0.07);}
-  .lcard-badge.cat-badge{color:var(--text-dim);}
-  .lcard-badge.rev-badge{color:var(--gold); border-color:rgba(224,168,71,0.3); background:rgba(224,168,71,0.07);}
-  .lcard-example{font-size:12px; color:var(--text-dim); margin-top:8px; font-style:italic; line-height:1.4;}
-  .lcard-actions{display:flex; gap:8px; align-items:center;}
-  .lcard-ic{
-    width:32px; height:32px; border-radius:50%; background:var(--surface-soft);
-    border:1px solid var(--surface-line); display:flex; align-items:center; justify-content:center;
-    font-size:14px; flex-shrink:0;
-  }
-  .lcard-ic.fav-ic.active{background:var(--gold-soft); color:var(--gold); border-color:var(--gold);}
-  .learned-summary{
-    background:var(--surface); border:1px solid var(--surface-line); border-radius:var(--radius);
-    padding:14px 16px; margin-bottom:14px; display:flex; gap:16px; align-items:center;
-  }
-  .learned-summary .ls-num{font-family:'IBM Plex Mono',monospace; font-size:28px; font-weight:600; color:var(--gold);}
-  .learned-summary .ls-sub{font-size:12px; color:var(--text-muted); margin-top:2px;}
-  .sort-row{display:flex; align-items:center; gap:8px; margin-bottom:12px;}
-  .sort-row .sort-lbl{font-size:12px; color:var(--text-dim); font-family:'IBM Plex Mono',monospace;}
-  .sort-btn{
-    font-size:11px; padding:5px 10px; border-radius:999px; font-weight:600;
-    background:var(--surface-soft); border:1px solid var(--surface-line); color:var(--text-muted);
-  }
-  .sort-btn.active{color:var(--gold); border-color:var(--gold); background:var(--gold-soft);}
 </style>
 </head>
 <body>
@@ -684,7 +629,10 @@ const RAW_WORDS = [
 
 const WORDS = RAW_WORDS.map(function(w,i){ return {key:String(i), en:w[0], mn:w[1], cat:w[2]}; });
 const TOTAL_DEFAULT = WORDS.length;
-const PER_DAY = 8;
+const PER_DAY_SWITCH_DATE = "2026-07-01"; // энэ өдрөөс эхлэн PER_DAY = 5
+function getPerDay(){
+  return todayStr() >= PER_DAY_SWITCH_DATE ? 5 : 8;
+}
 const REVIEW_PER_DAY = 5;
 const QUIZ_LEN = 10;
 
@@ -722,8 +670,8 @@ var STATE = {
   quizSession: null,
   modal: null,
   searchQuery: "",
-  learnedFilter: "all",
-  learnedSort: "newest"
+  learnedQuery: "",
+  learnedFilterCat: "all"
 };
 
 async function loadProgress(){
@@ -758,8 +706,11 @@ function getWord(key){
 
 function todaysBatch(){
   var all = allWords();
-  var start = STATE.progress.completedDays * PER_DAY;
-  return all.slice(start, start + PER_DAY);
+  var perDay = getPerDay();
+  // Өмнөх өдрүүдэд хуримтлуулсан үгийн тоог тогтмол 8-аар тооцож,
+  // 2026-07-01-c хойш шинэ багц бүрийг 5-аар тооцно.
+  var start = STATE.progress.completedDays * perDay;
+  return all.slice(start, start + perDay);
 }
 
 function reviewBatch(){
@@ -816,12 +767,11 @@ async function ensureEnrichment(words){
 
   var prompt = "Чи Монгол хэлээр Англи хэл сурдаг хүнд тусалдаг туслах. Доорх Англи үг бүрд:\n" +
     "1) Кирилл бичигт буулгасан ойролцоо дуудлага (Монгол хүн уншиж шууд ойлгомжтой байх ёстой, жишээ нь \"mind\" -> \"майнд\")\n" +
-    "2) Тухайн үгийг агуулсан энгийн, богино (5-9 үгтэй) Англи өгүүлбэр\n" +
-    "3) Тэрхүү өгүүлбэрийн товч Монгол орчуулга\n" +
+    "2) Тухайн үгийг агуулсан энгийн, өдөр тутмын ойлгомжтой богино (4-8 үгтэй) Англи өгүүлбэр (зөвхөн Англи хэл дээр, орчуулга хэрэггүй)\n" +
     "гаргаж өг. ЗӨВХӨН JSON массив буцаа. Markdown тэмдэглэгээ, тайлбар, нэмэлт текст бичихгүй. Формат:\n" +
-    "[{\"i\":0,\"cyrillic\":\"...\",\"example_en\":\"...\",\"example_mn\":\"...\"}]\n" +
+    "[{\"i\":0,\"cyrillic\":\"...\",\"example_en\":\"...\"}]\n" +
     "Үгс:\n" +
-    need.map(function(w,idx){ return idx+": "+w.en+" ("+w.mn+")"; }).join("\n");
+    need.map(function(w,idx){ return idx+": "+w.en+" (mn: "+w.mn+")"; }).join("\n");
 
   try{
     var res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -841,7 +791,7 @@ async function ensureEnrichment(words){
       var item = arr[j];
       var w2 = need[item.i];
       if(!w2) continue;
-      var payload = {cyrillic:item.cyrillic||"", example_en:item.example_en||"", example_mn:item.example_mn||""};
+      var payload = {cyrillic:item.cyrillic||"", example_en:item.example_en||""};
       STATE.enrich[w2.key] = payload;
       await sSet("enrich:"+w2.key, JSON.stringify(payload));
     }
@@ -906,14 +856,7 @@ function render(){
   html += "<div class='view'>";
   if(STATE.tab === "today") html += renderToday();
   else if(STATE.tab === "quiz") html += renderQuiz();
-  else if(STATE.tab === "learned"){
-    html += renderLearnedTab();
-    // Lazy-load enrichment for learned words that aren't enriched yet
-    setTimeout(function(){
-      var words = Object.keys(STATE.progress.learned).map(getWord).filter(Boolean).slice(0,20);
-      ensureEnrichment(words);
-    }, 0);
-  }
+  else if(STATE.tab === "learned") html += renderLearnedTab();
   else html += renderProgressTab();
   html += "</div>";
   html += renderTabbar();
@@ -938,7 +881,7 @@ function renderTabbar(){
   return "<div class='tabbar'>" +
     tab("today","☀️","Өнөөдөр") +
     tab("quiz","📝","Шалгалт") +
-    tab("learned","🧠","Цээжилсэн") +
+    tab("learned","🎓","Цээжилсэн") +
     tab("progress","📈","Ахиц") +
     "</div>";
 }
@@ -999,8 +942,9 @@ function renderCard(w){
   var flipped = !!STATE.todayFlip[w.key];
   var fav = !!STATE.progress.favorites[w.key];
   var loadingCls = e ? "" : " skeleton";
-  var exampleEn = e ? esc(e.example_en) : "&nbsp;";
-  var exampleMn = e ? esc(e.example_mn) : "";
+  var exampleBlock = e ?
+    ("<span class='ex-label'>Example</span><span class='ex-text'>"+esc(e.example_en)+"</span>") :
+    "&nbsp;";
   var cyr = e ? esc(e.cyrillic) : "";
 
   return "<div class='card-scene'>" +
@@ -1008,7 +952,7 @@ function renderCard(w){
       "<div class='face front"+loadingCls+"'>" +
         "<div class='top-row'><span class='tag'>"+esc(w.cat)+"</span><span class='tap-hint'>Дарж эргүүл</span></div>" +
         "<div class='word'>"+esc(w.en)+"</div>" +
-        "<div class='example'>"+exampleEn+"</div>" +
+        "<div class='example'>"+exampleBlock+"</div>" +
         "<div class='spacer'></div>" +
         "<div class='btn-row'>" +
           "<button class='icon-btn' data-action='listen' data-word='"+esc(w.en)+"'>🔊</button>" +
@@ -1019,7 +963,7 @@ function renderCard(w){
         "<div class='top-row'><span class='tag'>"+esc(w.cat)+"</span><span class='tap-hint'>Дарж эргүүл</span></div>" +
         "<div class='mn'>"+esc(w.mn)+"</div>" +
         "<div class='pron'>"+(cyr?("🗣 "+cyr):"")+"</div>" +
-        "<div class='example'>"+exampleMn+"</div>" +
+        "<div class='example'>"+exampleBlock+"</div>" +
         "<div class='spacer'></div>" +
         "<div class='btn-row'>" +
           "<button class='icon-btn' data-action='listen' data-word='"+esc(w.en)+"'>🔊</button>" +
@@ -1150,129 +1094,87 @@ function renderQuiz(){
   return html;
 }
 
-
 /* =========================================================
-   RENDER : LEARNED TAB
+   RENDER : LEARNED WORDS ("Цээжилсэн")
    ========================================================= */
-function daysAgo(dateStr){
-  if(!dateStr) return null;
-  var today = new Date(); today.setHours(0,0,0,0);
-  var d = new Date(dateStr); d.setHours(0,0,0,0);
-  return Math.round((today - d) / 86400000);
+function learnedCategories(){
+  var cats = {};
+  Object.keys(STATE.progress.learned).forEach(function(k){
+    var w = getWord(k);
+    if(w) cats[w.cat] = true;
+  });
+  return Object.keys(cats).sort();
 }
-function daysAgoLabel(n){
-  if(n === 0) return "Өнөөдөр";
-  if(n === 1) return "Өчигдөр";
-  return n + " өдрийн өмнө";
+
+function formatLearnedDate(ds){
+  if(!ds) return "";
+  var parts = ds.split("-");
+  if(parts.length !== 3) return ds;
+  var months = ["1-р сар","2-р сар","3-р сар","4-р сар","5-р сар","6-р сар","7-р сар","8-р сар","9-р сар","10-р сар","11-р сар","12-р сар"];
+  var mi = parseInt(parts[1],10)-1;
+  return parts[0]+" оны "+(months[mi]||parts[1])+"ын "+parseInt(parts[2],10);
 }
 
 function renderLearnedTab(){
-  var learnedKeys = Object.keys(STATE.progress.learned);
-  var today = todayStr();
-  var yesterday = yesterdayStr();
-  var html = "";
+  var entries = Object.keys(STATE.progress.learned).map(function(k){
+    var w = getWord(k);
+    if(!w) return null;
+    return {word:w, meta: STATE.progress.learned[k]};
+  }).filter(Boolean);
 
-  // Цээжилсэн үг байхгүй бол early return
-  if(!learnedKeys.length){
-    html += "<div class='empty' style='margin-top:30px;'>" +
-      "<div class='e-icon'>🧠</div>" +
-      "<div class='e-title'>Цээжилсэн үг байхгүй</div>" +
-      "<div class='e-sub'>Өнөөдрийн хичээлийн картуудыг үзээд 'Өнөөдрийн зорилгоо дуусгах' товч дарснаар үгс энд хадгалагдана.</div>" +
-      "</div>";
+  var html = "";
+  html += "<div class='sun-wrap'>" + sunArcSVG(entries.length ? 1 : 0) +
+    "<div class='copy'><div class='title'>Нийт цээжилсэн үгс: "+entries.length+"</div>" +
+    "<div class='sub'>Та одоогоор "+entries.length+" үгийг бүрэн цээжилжээ. Сайн байна! 🎉</div></div></div>";
+
+  if(!entries.length){
+    html += "<div class='empty'><div class='e-icon'>🎓</div>" +
+      "<div class='e-title'>Цээжилсэн үг алга</div>" +
+      "<div class='e-sub'>Өдөр тутмын зорилгоо биелүүлж, эхний үгсээ цээжлээрэй.</div></div>";
     return html;
   }
 
-  // Summary bar
-  var favCount = learnedKeys.filter(function(k){ return STATE.progress.favorites[k]; }).length;
-  var todayCount = learnedKeys.filter(function(k){ return STATE.progress.learned[k].learnedDate === today; }).length;
-  html += "<div class='learned-summary'>" +
-    "<div><div class='ls-num'>"+learnedKeys.length+"</div><div class='ls-sub'>нийт цээжилсэн</div></div>" +
-    "<div style='width:1px;height:38px;background:var(--surface-line);'></div>" +
-    "<div><div style='font-family:IBM Plex Mono,monospace;font-size:16px;font-weight:600;color:var(--teal);'>"+todayCount+"</div><div class='ls-sub'>өнөөдөр</div></div>" +
-    "<div style='width:1px;height:38px;background:var(--surface-line);'></div>" +
-    "<div><div style='font-family:IBM Plex Mono,monospace;font-size:16px;font-weight:600;color:var(--gold);'>⭐ "+favCount+"</div><div class='ls-sub'>дуртай</div></div>" +
-    "</div>";
+  html += "<div class='search-bar'><span>🔎</span><input id='learnedSearchInput' placeholder='Цээжилсэн үгээс хайх...' value='"+esc(STATE.learnedQuery)+"'/></div>";
 
-  // Filter chips
-  var filters = [
-    {id:"all", label:"Бүгд 📚"},
-    {id:"fav", label:"⭐ Дуртай"},
-    {id:"today", label:"Өнөөдөр"},
-    {id:"yesterday", label:"Өчигдөр"}
-  ];
-  html += "<div class='filter-row'>";
-  filters.forEach(function(f){
-    html += "<button class='filter-chip"+(STATE.learnedFilter===f.id?" active":"")+"' data-filter='"+f.id+"'>"+f.label+"</button>";
+  var cats = learnedCategories();
+  html += "<div class='pill-row'>";
+  html += "<button class='pill"+(STATE.learnedFilterCat==="all"?" active":"")+"' data-action='learnedFilter' data-cat='all'>Бүгд</button>";
+  cats.forEach(function(c){
+    html += "<button class='pill"+(STATE.learnedFilterCat===c?" active":"")+"' data-action='learnedFilter' data-cat='"+esc(c)+"'>"+esc(c)+"</button>";
   });
   html += "</div>";
 
-  // Sort row
-  html += "<div class='sort-row'><span class='sort-lbl'>Эрэмбэ:</span>" +
-    "<button class='sort-btn"+(STATE.learnedSort==="newest"?" active":"")+"' data-sort='newest'>Шинэ эхэнд</button>" +
-    "<button class='sort-btn"+(STATE.learnedSort==="oldest"?" active":"")+"' data-sort='oldest'>Хуучин эхэнд</button>" +
-    "<button class='sort-btn"+(STATE.learnedSort==="az"?" active":"")+"' data-sort='az'>A → Z</button>" +
-    "</div>";
-
-  // Filter
-  var filtered = learnedKeys.filter(function(k){
-    var ld = STATE.progress.learned[k];
-    if(STATE.learnedFilter === "fav") return !!STATE.progress.favorites[k];
-    if(STATE.learnedFilter === "today") return ld.learnedDate === today;
-    if(STATE.learnedFilter === "yesterday") return ld.learnedDate === yesterday;
-    return true;
+  var q = STATE.learnedQuery.trim().toLowerCase();
+  var filtered = entries.filter(function(e){
+    if(STATE.learnedFilterCat !== "all" && e.word.cat !== STATE.learnedFilterCat) return false;
+    if(!q) return true;
+    return e.word.en.toLowerCase().indexOf(q) >= 0 || e.word.mn.toLowerCase().indexOf(q) >= 0;
+  }).sort(function(a,b){
+    return (b.meta.learnedDate||"").localeCompare(a.meta.learnedDate||"");
   });
 
-  // Sort
-  filtered.sort(function(a, b){
-    var la = STATE.progress.learned[a], lb = STATE.progress.learned[b];
-    if(STATE.learnedSort === "newest") return (lb.learnedDate||"") > (la.learnedDate||"") ? 1 : -1;
-    if(STATE.learnedSort === "oldest") return (la.learnedDate||"") > (lb.learnedDate||"") ? 1 : -1;
-    var wa = getWord(a), wb = getWord(b);
-    return (wa?wa.en:"").localeCompare(wb?wb.en:"");
+  filtered.forEach(function(e){
+    var w = e.word, m = e.meta;
+    html += "<div class='word-row' style='align-items:center;'>" +
+      "<div style='min-width:0;flex:1;'>" +
+        "<div class='w-en'>"+esc(w.en)+"</div>" +
+        "<div class='w-mn'>"+esc(w.mn)+"</div>" +
+        "<div class='cat-tag' style='margin-top:4px;'>"+esc(w.cat)+" · давталт "+(m.reviewCount||0)+" удаа · "+esc(formatLearnedDate(m.learnedDate))+"</div>" +
+      "</div>" +
+      "<div style='display:flex; gap:6px; flex-shrink:0;'>" +
+        "<button class='icon-btn' data-action='listen' data-word='"+esc(w.en)+"' title='Сонсох'>🔊</button>" +
+        "<button class='icon-btn' data-action='reviewWord' data-key='"+w.key+"' title='Давтах жагсаалт руу нэмэх'>🔁</button>" +
+      "</div>" +
+    "</div>";
   });
 
   if(!filtered.length){
-    html += "<div class='empty'><div class='e-icon'>🧠</div>" +
-      "<div class='e-title'>Энд юм алга</div>" +
-      "<div class='e-sub'>Өнөөдрийн хичээлийг дуусгасны дараа цээжилсэн үгс энд харагдана.</div></div>";
-    return html;
+    html += "<div class='empty'><div class='e-icon'>🔍</div><div class='e-title'>Илэрц олдсонгүй</div></div>";
   }
-
-  filtered.forEach(function(k){
-    var w = getWord(k);
-    if(!w) return;
-    var ld = STATE.progress.learned[k];
-    var fav = !!STATE.progress.favorites[k];
-    var e = STATE.enrich[k];
-    var n = daysAgo(ld.learnedDate);
-    var reviewCount = ld.reviewCount || 0;
-
-    html += "<div class='lcard"+(fav?" fav-card":"")+"'>" +
-      "<div class='lcard-top'>" +
-        "<div>" +
-          "<div class='lcard-en'>"+esc(w.en)+"</div>" +
-          "<div class='lcard-mn'>"+esc(w.mn)+"</div>" +
-        "</div>" +
-        "<div class='lcard-actions'>" +
-          "<button class='lcard-ic' data-action='listen' data-word='"+esc(w.en)+"'>🔊</button>" +
-          "<button class='lcard-ic fav-ic"+(fav?" active":"")+"' data-action='fav' data-key='"+k+"'>⭐</button>" +
-        "</div>" +
-      "</div>" +
-      "<div class='lcard-meta'>" +
-        (n !== null ? "<span class='lcard-badge day-badge'>"+daysAgoLabel(n)+"</span>" : "") +
-        "<span class='lcard-badge cat-badge'>"+esc(w.cat)+"</span>" +
-        (reviewCount > 0 ? "<span class='lcard-badge rev-badge'>"+reviewCount+"× давтсан</span>" : "") +
-      "</div>" +
-      (e && e.example_en ? "<div class='lcard-example'>"+esc(e.example_en)+" · "+esc(e.example_mn)+"</div>" : "") +
-    "</div>";
-  });
-
   return html;
 }
 
-/* =========================================================
-   RENDER : PROGRESS
-   ========================================================= */
+
 function renderProgressTab(){
   var learnedCount = Object.keys(STATE.progress.learned).length;
   var total = totalWordCount();
@@ -1289,6 +1191,12 @@ function renderProgressTab(){
     "</div>";
 
   html += "<button class='btn-ghost' data-action='openAdd' style='margin-top:16px;'>+ Өөрийн үг нэмэх</button>";
+
+  html += "<div class='section-label'><div class='t'>Дата хадгалалт</div></div>";
+  html += "<div style='display:flex; gap:8px;'>" +
+    "<button class='btn-ghost' data-action='exportData' style='flex:1; margin-top:0;'>⬇️ Backup татах</button>" +
+    "<button class='btn-ghost' data-action='resetData' style='flex:1; margin-top:0; color:var(--coral);'>🗑 Цэвэрлэх</button>" +
+    "</div>";
 
   html += "<div class='search-bar'><span>🔎</span><input id='searchInput' placeholder='Үг хайх...' value='"+esc(STATE.searchQuery)+"'/></div>";
 
@@ -1410,29 +1318,42 @@ function attachHandlers(){
     });
   }
 
-  // Learned tab: filter chips
-  document.querySelectorAll("[data-filter]").forEach(function(el){
+  var learnedSearchInput = document.getElementById("learnedSearchInput");
+  if(learnedSearchInput){
+    learnedSearchInput.addEventListener("input", function(){
+      STATE.learnedQuery = learnedSearchInput.value;
+      render();
+      var again = document.getElementById("learnedSearchInput");
+      if(again){ again.focus(); again.setSelectionRange(again.value.length, again.value.length); }
+    });
+  }
+
+  document.querySelectorAll("[data-action='learnedFilter']").forEach(function(el){
     el.addEventListener("click", function(){
-      STATE.learnedFilter = el.getAttribute("data-filter");
+      STATE.learnedFilterCat = el.getAttribute("data-cat");
       render();
     });
   });
 
-  // Learned tab: sort buttons
-  document.querySelectorAll("[data-sort]").forEach(function(el){
-    el.addEventListener("click", function(){
-      STATE.learnedSort = el.getAttribute("data-sort");
-      render();
-    });
-  });
-
-  // Learned tab: listen buttons inside lcard
-  document.querySelectorAll(".lcard [data-action='listen']").forEach(function(el){
+  document.querySelectorAll("[data-action='reviewWord']").forEach(function(el){
     el.addEventListener("click", function(ev){
       ev.stopPropagation();
-      speak(el.getAttribute("data-word"));
+      var key = el.getAttribute("data-key");
+      var L = STATE.progress.learned[key];
+      if(L){
+        L.lastReview = 0; // дараагийн давталтын жагсаалтад хамгийн түрүүнд орно
+        saveProgress();
+        var w = getWord(key);
+        toast("🔁 \""+(w?w.en:"")+"\" давталтад нэмэгдлээ");
+      }
     });
   });
+
+  var exportBtn = document.querySelector("[data-action='exportData']");
+  if(exportBtn) exportBtn.addEventListener("click", exportData);
+
+  var resetBtn = document.querySelector("[data-action='resetData']");
+  if(resetBtn) resetBtn.addEventListener("click", resetData);
 }
 
 function answerQuiz(idx){
@@ -1482,11 +1403,81 @@ async function saveCustomWord(){
   render();
 }
 
+function exportData(){
+  try{
+    var payload = {
+      exportedAt: new Date().toISOString(),
+      progress: STATE.progress,
+      enrich: STATE.enrich
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "steppe-vocab-backup-"+todayStr()+".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast("⬇️ Backup татагдлаа");
+  }catch(e){
+    console.error("export failed", e);
+    toast("Backup татахад алдаа гарлаа");
+  }
+}
+
+async function resetData(){
+  var ok = window.confirm("Бүх ахиц, цээжилсэн үг болон тохиргоог устгахдаа итгэлтэй байна уу? Энэ үйлдлийг буцаах боломжгүй.");
+  if(!ok) return;
+  STATE.progress = defaultProgress();
+  STATE.todayFlip = {};
+  STATE.quizSession = null;
+  await saveProgress();
+  toast("🗑 Бүх дата цэвэрлэгдлээ");
+  render();
+}
+
+/* =========================================================
+   ONE-TIME SEED: 6-р сарын 28, 29-нд гар аргаар цээжилсэн үгс
+   ========================================================= */
+async function seedInitialProgress(){
+  var already = await sGet("seeded_2806");
+  if(already) return; // нэг л удаа ажиллана
+
+  // 28-ны өдөр цээжилсэн (индекс дугаараар)
+  var day28 = [0,3,2,7,1,4,5];   // bias, birch, binoculars, bogged down, bilingual, blockbuster, to blur
+  // 29-ны өдөр цээжилсэн
+  var day29 = [8,10,9,11,12,13,14,15]; // to breed, brick, to boost, brochure, brook, camcorder, camouflage, to capture
+
+  if(STATE.progress.completedDays < 2){
+    var t28 = new Date("2026-06-28T20:00:00").getTime();
+    var t29 = new Date("2026-06-29T20:00:00").getTime();
+    day28.forEach(function(idx){
+      var key = String(idx);
+      if(!STATE.progress.learned[key]){
+        STATE.progress.learned[key] = {learnedDate:"2026-06-28", lastReview:t28, reviewCount:0};
+      }
+    });
+    day29.forEach(function(idx){
+      var key = String(idx);
+      if(!STATE.progress.learned[key]){
+        STATE.progress.learned[key] = {learnedDate:"2026-06-29", lastReview:t29, reviewCount:0};
+      }
+    });
+    STATE.progress.completedDays = 2;
+    STATE.progress.lastCompletionDate = "2026-06-29";
+    STATE.progress.streak = Math.max(STATE.progress.streak, 2);
+    await saveProgress();
+  }
+  await sSet("seeded_2806", "1");
+}
+
 /* =========================================================
    INIT
    ========================================================= */
 async function init(){
   await loadProgress();
+  await seedInitialProgress();
   STATE.loading = false;
   render();
   var batch = todaysBatch();
